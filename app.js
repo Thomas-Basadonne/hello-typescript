@@ -1,42 +1,27 @@
-// * OGGETTI
-//TS si arrabbia se proviamo ad accedere ad un valore dell'oggetto inesistente
-//le parentesi graffe servono per specificare il Type delle info contenute dall'oggetto
-// const person: {
-//   name: string;
-//   age: number;
-//   hobbies: string[];
-//   role:[number, string]; //? Qui stiamo definendo un Tuple (array con lunghezza e Type fissi)
-// }
-// Senza specificare TS lo capisce da solo
-// const person = {
-//   name: "Thomas",
-//   age: 22,
-//   hobbies: ["Sports", "Cooking"],
-//   role: [2, "author"],
-// };
-// Enum primo custom type
-var Role;
-(function (Role) {
-    Role[Role["ADMIN"] = 0] = "ADMIN";
-    Role[Role["READ_ONLY"] = 1] = "READ_ONLY";
-    Role[Role["AUTHOR"] = 2] = "AUTHOR";
-})(Role || (Role = {}));
-var person = {
-    name: "Thomas",
-    age: 22,
-    hobbies: ["Sports", "Cooking"],
-    role: Role.ADMIN,
-};
-// Possiamo dare un Type specifico per gli array o dare any[] per un array misto
-var favoriteActivities;
-favoriteActivities = ["Sports"];
-console.log(person.name);
-// Aver specificato che è un array di stringhe ci permette di accedere senza problemi a tutte le funzioni specifiche delle stringhe
-for (var _i = 0, _a = person.hobbies; _i < _a.length; _i++) {
-    var hobby = _a[_i];
-    console.log(hobby.toUpperCase());
-    //console.log(hobby.map()); // !!! Errore perche map non è per le stringhe
+//* UNION TYPE
+// come essere piu flessibile sui type
+//per accettare 2 o piu tipi di valori usiamo |
+function combine(input1, input2, resultConvertion //literal type combinato con un union type
+) {
+    var result;
+    if ((typeof input1 === "number" && typeof input2 === "number") ||
+        resultConvertion === "as-number") {
+        result = +input1 + +input2;
+    }
+    else {
+        result = input1.toString() + input2.toString();
+    }
+    return result;
+    //   if (resultConvertion === "as-number") {
+    //     return +result;
+    //   } else {
+    //     return result.toString();
+    //   }
 }
-if (person.role === Role.ADMIN) {
-    console.log("Sei admin");
-}
+var combinedAges = combine(20, 30, "as-number");
+console.log(combinedAges);
+var combinedName = combine("Thomas", "Elena", "as-text");
+console.log(combinedName);
+//Literl Types
+var CombinedStringAges = combine("30", "26", "as-number");
+console.log(CombinedStringAges);
