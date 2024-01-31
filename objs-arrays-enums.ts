@@ -15,28 +15,30 @@
 //   role: [2, "author"],
 // };
 // Enum primo custom type
-var Role;
-(function (Role) {
-    Role[Role["ADMIN"] = 0] = "ADMIN";
-    Role[Role["READ_ONLY"] = 1] = "READ_ONLY";
-    Role[Role["AUTHOR"] = 2] = "AUTHOR";
-})(Role || (Role = {}));
-var person = {
-    name: "Thomas",
-    age: 22,
-    hobbies: ["Sports", "Cooking"],
-    role: Role.ADMIN,
+enum Role {
+  ADMIN,
+  READ_ONLY,
+  AUTHOR,
+}
+
+const person = {
+  name: "Thomas",
+  age: 22,
+  hobbies: ["Sports", "Cooking"],
+  role: Role.ADMIN,
 };
+
 // Possiamo dare un Type specifico per gli array o dare any[] per un array misto
-var favoriteActivities;
+let favoriteActivities: string[];
 favoriteActivities = ["Sports"];
+
 console.log(person.name);
 // Aver specificato che è un array di stringhe ci permette di accedere senza problemi a tutte le funzioni specifiche delle stringhe
-for (var _i = 0, _a = person.hobbies; _i < _a.length; _i++) {
-    var hobby = _a[_i];
-    console.log(hobby.toUpperCase());
-    //console.log(hobby.map()); // !!! Errore perche map non è per le stringhe
+for (const hobby of person.hobbies) {
+  console.log(hobby.toUpperCase());
+  //console.log(hobby.map()); // !!! Errore perche map non è per le stringhe
 }
+
 if (person.role === Role.ADMIN) {
-    console.log("Sei admin");
+  console.log("Sei admin");
 }
